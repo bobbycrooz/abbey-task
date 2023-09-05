@@ -1,0 +1,129 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+	font-family: "Gilroy-Bold";
+	src: local("Gilroy-Bold"), url("/fonts/Gilroy-Bold.ttf") format("truetype");
+}
+
+@font-face {
+	font-family: "Gilroy-Regular";
+	src: local("Gilroy-Regular"), url("/fonts/Gilroy-Regular.ttf") format("truetype");
+}
+
+@font-face {
+	font-family: "Gilroy-Light";
+	src: local("Gilroy-Light"), url("/fonts/Gilroy-Light.ttf") format("truetype");
+}
+
+@font-face {
+	font-family: "Gilroy-Medium";
+	src: local("Gilroy-Medium"), url("/fonts/Gilroy-Medium.ttf") format("truetype");
+}
+
+body {
+	font-family: "Gilroy-Light";
+}
+
+.url-input-box {
+	border-radius: 14px;
+	border: 1px solid #9b48f5;
+	background: linear-gradient(90deg, rgba(188, 138, 225, 0.33) 0%, rgba(137, 173, 233, 0.35) 100%);
+	box-shadow: 0px 7px 19px 2px rgba(179, 209, 224, 0.25);
+}
+
+
+.centered{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+}
+
+.ver-cent{
+      display: flex;
+      align-items: center;
+}
+
+.hor-cent{
+      display: flex;
+      justify-content: center;
+}
+
+
+
+@keyframes softRotate {
+      
+    to {
+            transform: rotate(360deg);
+      }
+      
+}
+
+.animate-soft-rotate{
+      // animation: softRotate;
+      // animation-duration: 9s;
+      // animation-iteration-count: infinite;
+      // animation-timing-function: cubic-bezier();
+      // animation-delay: 0ms;
+      
+      animation: softRotate 9s linear infinite;
+
+}
+
+.br{
+      @apply border-red-500 border; 
+}
+
+.bg{
+      @apply border-green-500 border; 
+}
+
+
+.home{
+      background: url('./noise.svg');
+      background-color: #F8F8FE;
+}
+
+
+
+// ------------------- Loader ------------------- //
+
+.loader-body {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: relative;
+	height: 20.5px;
+	margin-bottom: -5px;
+
+	&-roller {
+		position: absolute;
+		margin-top: -5px;
+		border-radius: 50%;
+		border-width: 3px;
+		border-style: solid;
+		border-color: transparent rgba(255, 255, 255, 0.793) rgba(255, 255, 255, 0.793) rgba(255, 255, 255, 0.793);
+		width: 18px;
+		height: 18px;
+		background: transparent none repeat scroll 0 0;
+		animation: 1500ms linear 0s normal none infinite running rotate-loader;
+		-webkit-animation: 1500ms linear 0s normal none infinite running rotate-loader;
+
+		&.two {
+			border-color: transparent transparent #FF4B00 #FF4B00;
+			width: 18px;
+			height: 18px;
+		}
+	}
+
+	@keyframes rotate-loader {
+		100% {
+			transform: rotate(360deg);
+			-webkit-transform: rotate(360deg);
+			-moz-transform: rotate(360deg);
+			-ms-transform: rotate(360deg);
+			-o-transform: rotate(360deg);
+		}
+	}
+}
