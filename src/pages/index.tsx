@@ -111,13 +111,13 @@ const Home: React.FC = () => {
 							value={longLink}
 							onChange={handleChange}
 							placeholder="https://example.com"
-							className="w-full bg-transparent absolute top-0 left-0 h-full pl-14  focus:outline-none"
+							className="w-full bg-transparent absolute top-0 left-0 h-full pl-14  focus:outline-none rounded-xl"
 						/>
 
 						<button
 							// onClick={ha}
 							disabled={isLoading}
-							className={`btn hidden  bg-[#9B48F5] rounded-[14px] font-g-medium text-white text-lg
+							className={`btn hidden  bg-[#9B48F5] rounded-[14px] font-g-medium text-white md:text-lg
 						 px-[39px]  disabled:bg-text-fade disabled:text-gray-300 p-2 absolute right-0 -top-[2px] md:flex items-center  hover:top-[2px] transition-all ${
 								isLoading ? "cursor-wait space-x-4" : "justify-center"
 							}`}
@@ -135,7 +135,7 @@ const Home: React.FC = () => {
 						<button
 							onClick={handleSubmit}
 							disabled={isLoading}
-							className={`btn flex  bg-[#9B48F5] rounded-[14px] font-g-medium text-white text-lg
+							className={`btn flex  bg-[#9B48F5] rounded-[14px] font-g-medium text-white md:text-lg
 						 px-[39px]  disabled:bg-text-fade disabled:text-gray-300 p-2 mt-3 md:hidden items-center  hover:top-[2px] transition-all ${
 								isLoading ? "cursor-wait space-x-4" : "justify-center"
 							}`}
