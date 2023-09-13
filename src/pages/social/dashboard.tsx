@@ -21,10 +21,10 @@ const tab = [
 		icon: <BsFilePost />,
 	},
 
-	{
-		name: "Followrs",
-		icon: <GiShadowFollower />,
-	},
+	// {
+	// 	name: "Followrs",
+	// 	icon: <GiShadowFollower />,
+	// },
 
 	{
 		name: "Connections",
@@ -103,12 +103,12 @@ const Dashboard = () => {
 		}
 	}, [filter]);
 
-	useEffect(() => {
-		if (!filterTab) {
-			navigate(`/dashboard/${tab[0].name.toLowerCase()}`);
-		}
-	// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [pathname]);
+	// useEffect(() => {
+	// 	if (!filterTab) {
+	// 		navigate(`/dashboard/${tab[0].name.toLowerCase()}`);
+	// 	}
+	// // eslint-disable-next-line react-hooks/exhaustive-deps
+	// }, [pathname]);
 
 	return (
 		<div className="home w-screen min-h-screen flex justify-center">
