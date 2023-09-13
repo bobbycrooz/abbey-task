@@ -13,7 +13,7 @@ import { connectAPI } from "@/api/endpoints/auth.endpoint";
 import toast from "react-hot-toast";
 import { useEffect, useState } from "react";
 import EditModal from "@/components/EditModal";
-import { Outlet, useLocation, useNavigate, useSearchParams } from "react-router-dom";
+import { Outlet, useNavigate, useSearchParams } from "react-router-dom";
 
 const tab = [
 	{
