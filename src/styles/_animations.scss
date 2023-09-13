@@ -1,0 +1,22 @@
+// keyframes 
+@keyframes softRotate {
+      
+    to {
+            transform: rotate(360deg);
+      }
+      
+}
+
+
+
+// animation definations
+.animate-soft-rotate{
+      // animation: softRotate;
+      // animation-duration: 9s;
+      // animation-iteration-count: infinite;
+      // animation-timing-function: cubic-bezier();
+      // animation-delay: 0ms;
+      
+      animation: softRotate 9s linear infinite;
+
+}

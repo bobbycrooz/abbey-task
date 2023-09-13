@@ -1,0 +1,25 @@
+
+.centered{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+}
+
+.ver-cent{
+      display: flex;
+      align-items: center;
+}
+
+.hor-cent{
+      display: flex;
+      justify-content: center;
+}
+
+.br{
+      @apply border-red-500 border; 
+}
+
+.bg{
+      @apply border-green-500 border; 
+}
+

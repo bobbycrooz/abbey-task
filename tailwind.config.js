@@ -12,7 +12,9 @@ export default {
         "brand-main": "#419966",
         "brand-typo": colors.gray[600],
         pri: "#1C0832",
-        "text-fade": "#9C9C9C"
+        "text-fade": "#9C9C9C",
+        "abbey-pri": "#002668"
+
       },
       fontFamily: {
         'g-bold': ["Gilroy-Bold", "sans-serif"],

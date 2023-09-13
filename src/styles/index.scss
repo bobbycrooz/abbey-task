@@ -1,0 +1,86 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import "button";
+@import "fonts";
+@import "animations";
+@import "utils";
+@import "inputField";
+
+
+body {
+	// font-family: "Gilroy-Light";
+}
+
+.url-input-box {
+	border-radius: 14px;
+	border: 1px solid #9b48f5;
+	background: linear-gradient(90deg, rgba(188, 138, 225, 0.33) 0%, rgba(137, 173, 233, 0.35) 100%);
+	box-shadow: 0px 7px 19px 2px rgba(179, 209, 224, 0.25);
+}
+
+.home {
+	background: url("./noise.svg");
+	background-color: #fafafa;
+}
+
+// ------------------- Loader ------------------- //
+
+.loader-body {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: relative;
+	height: 20.5px;
+	margin-bottom: -5px;
+
+	&-roller {
+		position: absolute;
+		margin-top: -5px;
+		border-radius: 50%;
+		border-width: 3px;
+		border-style: solid;
+		border-color: transparent rgba(255, 255, 255, 0.793) rgba(255, 255, 255, 0.793) rgba(255, 255, 255, 0.793);
+		width: 18px;
+		height: 18px;
+		background: transparent none repeat scroll 0 0;
+		animation: 1500ms linear 0s normal none infinite running rotate-loader;
+		-webkit-animation: 1500ms linear 0s normal none infinite running rotate-loader;
+
+		&.two {
+			border-color: transparent transparent #ff4b00 #ff4b00;
+			width: 18px;
+			height: 18px;
+		}
+	}
+
+	@keyframes rotate-loader {
+		100% {
+			transform: rotate(360deg);
+			-webkit-transform: rotate(360deg);
+			-moz-transform: rotate(360deg);
+			-ms-transform: rotate(360deg);
+			-o-transform: rotate(360deg);
+		}
+	}
+}
+
+.illus {
+	background-image: url("/abbey-mobile.png");
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: contain;
+	background-color: #ffffff;
+}
+
+
+.abbey {
+	background-image: url("/abbey-bg.webp");
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	// background-color: #ffffff;
+
+
+}
