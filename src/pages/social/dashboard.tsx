@@ -2,7 +2,7 @@
 // import React from "react";
 import { BsFilePost } from "react-icons/bs";
 // import { GrConnect } from "react-icons/gr";
-import { GiShadowFollower } from "react-icons/gi";
+// import { GiShadowFollower } from "react-icons/gi";
 import { AiOutlineHome, AiFillEdit } from "react-icons/ai";
 import { CgProfile, CgFeed } from "react-icons/cg";
 import { BiLogOutCircle, BiSolidUserPlus, BiUserCheck } from "react-icons/bi";
@@ -54,9 +54,9 @@ const Dashboard = () => {
 	const [isEditing, seIsEditing] = useState<boolean>(false);
 	const [queryParameters] = useSearchParams();
 	const filter = queryParameters.get("filter");
-	const filterTab = queryParameters.get("tab");
+	// const filterTab = queryParameters.get("tab");
 	const navigate = useNavigate();
-	const {pathname} = useLocation()
+	// const {pathname} = useLocation()
 	const [currentTab, setCurrentTab] = useState(tab[0].name);
 
 	async function handleConnet(id: string) {
