@@ -5,59 +5,59 @@ import { BsFilePost } from "react-icons/bs";
 import { GiShadowFollower } from "react-icons/gi";
 import { AiOutlineHome, AiFillEdit } from "react-icons/ai";
 import { CgProfile, CgFeed } from "react-icons/cg";
-import { BiSolidUserPlus, BiUserCheck } from "react-icons/bi";
+import { BiLogOutCircle, BiSolidUserPlus, BiUserCheck } from "react-icons/bi";
 
-import { FiPlus } from "react-icons/fi";
 import { useAuth } from "@/context/userContext";
 import { RotatingLines } from "react-loader-spinner";
 import { connectAPI } from "@/api/endpoints/auth.endpoint";
 import toast from "react-hot-toast";
 import { useEffect, useState } from "react";
 import EditModal from "@/components/EditModal";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { Outlet, useLocation, useNavigate, useSearchParams } from "react-router-dom";
+
+const tab = [
+	{
+		name: "Posts",
+		icon: <BsFilePost />,
+	},
+
+	{
+		name: "Followrs",
+		icon: <GiShadowFollower />,
+	},
+
+	{
+		name: "Connections",
+		icon: <BiSolidUserPlus />,
+	},
+];
+
+const sidetab = [
+	{
+		name: "Home",
+		icon: <AiOutlineHome />,
+	},
+
+	{
+		name: "Profile",
+		icon: <CgProfile />,
+	},
+
+	{
+		name: "Feeds",
+		icon: <CgFeed />,
+	},
+];
 
 const Dashboard = () => {
 	const { User, AllUsers, findAndInitUser, getAllUser } = useAuth();
 	const [isEditing, seIsEditing] = useState<boolean>(false);
-		const [queryParameters] = useSearchParams();
+	const [queryParameters] = useSearchParams();
 	const filter = queryParameters.get("filter");
+	const filterTab = queryParameters.get("tab");
 	const navigate = useNavigate();
-
-
-
-	const tab = [
-		{
-			name: "Post",
-			icon: <BsFilePost />,
-		},
-
-		{
-			name: "Followrs",
-			icon: <GiShadowFollower />,
-		},
-
-		{
-			name: "Connect",
-			icon: <BiSolidUserPlus />,
-		},
-	];
-
-	const sidetab = [
-		{
-			name: "Home",
-			icon: <AiOutlineHome />,
-		},
-
-		{
-			name: "Profile",
-			icon: <CgProfile />,
-		},
-
-		{
-			name: "Feeds",
-			icon: <CgFeed />,
-		},
-	];
+	const {pathname} = useLocation()
+	const [currentTab, setCurrentTab] = useState(tab[0].name);
 
 	async function handleConnet(id: string) {
 		const data = {
@@ -75,14 +75,27 @@ const Dashboard = () => {
 		// console.log(serverResponse.message);
 	}
 
+	function handleLogOut() {
+		localStorage.clear();
+		navigate("/");
+		// console.log(serverResponse.message);
+	}
+
+	function handleTabClick(i: string) {
+		setCurrentTab(i);
+		navigate(`/dashboard/${i.toLowerCase()}`);
+
+		// console.log(serverResponse.message);
+	}
+
 	function hasConnected(id: string) {
-		const hasConnect = User?.connections?.find((i:any) => i._id == id);
+		const hasConnect = User?.connections?.find((i: any) => i._id == id);
 
 		if (hasConnect) return true;
 		return false;
 	}
 
-		useEffect(() => {
+	useEffect(() => {
 		if (filter == "edit") {
 			seIsEditing(true);
 		} else {
@@ -90,11 +103,18 @@ const Dashboard = () => {
 		}
 	}, [filter]);
 
+	useEffect(() => {
+		if (!filterTab) {
+			navigate(`/dashboard/${tab[0].name.toLowerCase()}`);
+		}
+	// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [pathname]);
+
 	return (
-		<div className="home w-screen h-screen flex justify-center">
+		<div className="home w-screen min-h-screen flex justify-center">
 			<nav className="h-screen  p-4 w-[350px]">
 				{/* logo */}
-				<button onClick={() => navigate('/')} className="w-full flex items-center">
+				<button onClick={() => navigate("/")} className="w-full flex items-center">
 					<img src="/abbey-arrow.svg" className="w-8 h-8" alt="" />
 					<p className="logo font-g-bold text-xl mt-1 ml-3 text-[#002668]">
 						Staff <span className="text-[#c81e19]">connect</span>
@@ -113,10 +133,18 @@ const Dashboard = () => {
 							<p className="">{i.name}</p>
 						</div>
 					))}
+
+					<button
+						onClick={handleLogOut}
+						className={`nav_btn flex px-3 p-2 w-full rounded-xl hover:bg-gray-100  items-center space-x-2 `}
+					>
+						<BiLogOutCircle />
+						<p className="">{"LogOut"}</p>
+					</button>
 				</div>
 			</nav>
 
-			<div className="feeds  h-screen border  w-[40%]">
+			<div className="feeds  min-h-screen border  w-[40%]">
 				{/* CORVER */}
 				<div
 					style={{
@@ -136,7 +164,10 @@ const Dashboard = () => {
 
 				{/* EDIT BUTTON */}
 				<div className="flex justify-end  mt-3 px-4">
-					<button onClick={() => navigate("?filter=edit")} className="border rounded-xl px-3 p-2 flex items-center space-x-2 border-gray-600 transition-all duration-75 hover:shadow-sm">
+					<button
+						onClick={() => navigate("?filter=edit")}
+						className="border rounded-xl px-3 p-2 flex items-center space-x-2 border-gray-600 transition-all duration-75 hover:shadow-sm"
+					>
 						<AiFillEdit />
 
 						<p>Edit Profile</p>
@@ -166,13 +197,14 @@ const Dashboard = () => {
 				</div>
 
 				{/* TABS */}
-
 				<ul className="w-full flex h-11  items-center border-b-2  justify-around mt-6">
 					{tab.map((i: any, k: number) => (
 						<li
+							onClick={() => handleTabClick(i.name)}
 							key={k}
-							className={`tab-item centered px-3 p-2  space-x-2 hover:text-abbey-pri hover:font-medium ${
-								k == 0 ? "text-abbey-pri font-medium" : "text-gray-500 font-normal"
+							role={"button"}
+							className={`tab-item centered px-3 p-2 hover:bg-gray-100 rounded-xl  space-x-2 hover:text-abbey-pri hover:font-medium ${
+								currentTab == i.name ? "text-abbey-pri font-medium" : "text-gray-500 font-normal"
 							}`}
 						>
 							{i.icon}
@@ -182,19 +214,10 @@ const Dashboard = () => {
 				</ul>
 
 				{/* content */}
-				<div className="content_box flex flex-col items-center p-4 space-y-4">
-					<h1 className="nothing">No post found, try creating a post</h1>
-
-					{/* <Button ghost text={"Create"} type={undefined} /> */}
-					<button className="border rounded-xl px-3 p-2 flex items-center space-x-2 border-gray-600 transition-all duration-75 hover:shadow-sm">
-						<FiPlus />
-
-						<p>Create</p>
-					</button>
-				</div>
+				<Outlet />
 			</div>
 
-			<aside className="h-screen min-w-[360px] p-6 ">
+			<aside className="h-screen min-w-[360px] p-6">
 				<div className="search">
 					<input
 						type="search"
@@ -251,7 +274,7 @@ const Dashboard = () => {
 				</div>
 			</aside>
 
-			<EditModal showModal={isEditing}/>
+			<EditModal showModal={isEditing} />
 		</div>
 	);
 };
