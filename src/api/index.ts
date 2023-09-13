@@ -24,6 +24,7 @@ function fmtResponse(responseData: any, error: boolean) {
 
 const service = axios.create({
 	baseURL: "https://digitalize-7057ce3eda07.herokuapp.com/v1",
+	// baseURL: "http://localhost:4300/v1",
 	// process.env.NEXT_PUBLIC_NODE_ENV === "development" ? `http://localhost:3000` : process.env.NEXT_PUBLIC_BASE_LINK,
 	// headers: {
 	// 	"x-auth-token": `${String(getToken())}`,

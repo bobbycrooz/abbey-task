@@ -1,8 +1,10 @@
-import  { FormEvent, useEffect, useRef, useState } from "react";
-import {   useNavigate, useSearchParams } from "react-router-dom";
+import { ChangeEvent, FormEvent, useEffect, useRef, useState } from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import InputField from "./InputField";
 import Button from "./Button";
+import { useAuth } from "@/context/userContext";
+import toast from "react-hot-toast";
 
 interface ModalTypes {
 	showModal: boolean;
@@ -16,16 +18,56 @@ const AuthModal = ({ showModal }: ModalTypes) => {
 	const navigate = useNavigate();
 	const modalRef = useRef(null);
 	const [LoginIn, setLoginIn] = useState<boolean>();
+	const [isLoading, setisLoading] = useState<boolean>(false);
+	const { authService } = useAuth();
+	const [cred, setcred] = useState({
+		email: "",
+		password: "",
+		username: "",
+	});
 
 	useEffect(() => {
 		if (filter == "auth") {
 			setAuthMode(true);
+			setLoginIn(true);
 		}
 	}, [filter]);
 
-	function handleSubmit(e: FormEvent<HTMLElement>) {
+	async function handleSubmit(e: FormEvent<HTMLElement>) {
 		e.preventDefault();
-		navigate("dashboard");
+		setisLoading(true);
+
+		if (LoginIn) {
+			const valid = cred.email.length > 1 && cred.password.length > 1;
+
+			if (!valid) {
+				setisLoading(false);
+				return toast.error("All fields are required");
+			}
+
+			const loginSuccess = await authService.logIn(cred);
+
+			if (loginSuccess) {
+				setisLoading(false);
+				navigate("dashboard");
+			}
+		} else {
+			const valid = cred.username.length > 1 && cred.email.length > 1 && cred.password.length > 1;
+
+			if (!valid) {
+				setisLoading(false);
+				return toast.error("All fields are required");
+			}
+
+			const registeruccess = await authService.register(cred);
+
+			if (registeruccess) {
+				setisLoading(false);
+				navigate("dashboard");
+			}
+		}
+
+		setisLoading(false);
 	}
 
 	function handleBackDropt(e: any) {
@@ -34,8 +76,19 @@ const AuthModal = ({ showModal }: ModalTypes) => {
 		}
 	}
 
-	console.log(authMode);
-	
+	console.log(authMode, LoginIn);
+
+	function handleFieldChange(e: ChangeEvent<HTMLInputElement>, fieldName: string) {
+		e.preventDefault();
+
+		const { value } = e.target;
+
+		setcred({
+			...cred,
+			[fieldName]: value,
+		});
+	}
+
 	return showModal ? (
 		<AnimatePresence>
 			<motion.div
@@ -43,18 +96,17 @@ const AuthModal = ({ showModal }: ModalTypes) => {
 				initial={{ opacity: 0 }}
 				animate={{ opacity: 1 }}
 				exit={{ opacity: 0, x: 100 }}
-				className="fixed top-0 left-0 bg-[#000000ba] centered w-screen h-screen fadeIn"
+				className="fixed top-0 left-0 bg-[#00000070] centered w-screen h-screen fadeIn"
 				onClick={handleBackDropt}
 				ref={modalRef}
 			>
-				<div className="card bg-white rounded-xl w-[60%] h-[520px] flex ">
+				<div className="card bg-white rounded-xl w-[60%] h-[460px] flex ">
 					<div className="auth_box w-1/2 p-8">
 						<div className="w-full space-y-6">
 							{/* head */}
 							<div className="flex justify-start items-center space-x-3">
 								<div
 									role="button"
-									
 									onClick={() => setLoginIn(!true)}
 									className={`space-x-2 flex  px-4 p-2 rounded   ${
 										!LoginIn ? "border border-[#002668] font-medium text-[#002668]" : "text-[#00266890]"
@@ -80,10 +132,33 @@ const AuthModal = ({ showModal }: ModalTypes) => {
 
 							{/* auth form */}
 							<form onSubmit={handleSubmit} className="form flex flex-col space-y-2 mt-4 w-full ">
-							{!LoginIn &&	<InputField label={"Username"} type={"text"} />}
-								<InputField label={"Email"} type={"email"} />
-								<InputField label={"Password"} type={"password"} />
-								<Button primary text={LoginIn ? "Log In" : "Sign Up"} type={undefined} />
+								{!LoginIn && (
+									<InputField
+										label={""}
+										type={"text"}
+										value={cred.username}
+										filedName="username"
+										change={handleFieldChange}
+										place={"Username"}
+									/>
+								)}
+								<InputField
+									label={""}
+									type={"email"}
+									value={cred.email}
+									filedName="email"
+									change={handleFieldChange}
+									place={"Email"}
+								/>
+								<InputField
+									label={""}
+									type={"password"}
+									value={cred.password}
+									filedName="password"
+									change={handleFieldChange}
+									place={"Password"}
+								/>
+								<Button isLoading={isLoading} primary text={LoginIn ? "Log In" : "Sign Up"} type={undefined} />
 							</form>
 
 							<div className="or border w-full relative border-dashed">
