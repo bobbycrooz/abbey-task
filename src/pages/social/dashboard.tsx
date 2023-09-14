@@ -275,6 +275,28 @@ const Dashboard = () => {
 			</aside>
 
 			<EditModal showModal={isEditing} />
+
+			{/* BOTTOM NAV */}
+			<div className="flex md:hidden shadow-xl h-[74px] w-full fixed bottom-0 left-0 items-center bg-white">
+				{sidetab.map((i: any, k: number) => (
+					<div
+						key={k}
+						className={`nav_btn grid place-content-center  w-full  h-full  rounded-xl text-2xl text-abbey-pri ${
+							k == 0 && "bg-gray-100 font-medium"
+						}`}
+					>
+						<div>{i.icon}</div>
+					</div>
+				))}
+
+				<button
+					onClick={handleLogOut}
+					className={`nav_btn centered flex px-3 p-2 w-full rounded-xl hover:bg-gray-100  items-center space-x-2 text-2xl text-abbey-pri`}
+				>
+					<BiLogOutCircle />
+					{/* <p className="">{"LogOut"}</p> */}
+				</button>
+			</div>
 		</div>
 	);
 };
