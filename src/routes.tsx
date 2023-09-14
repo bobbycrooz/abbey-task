@@ -5,6 +5,7 @@ import Social from "./pages/social";
 import Dashboard from "./pages/social/dashboard";
 import Connections from "./pages/social/connections";
 import Posts from "./pages/social/posts";
+import Users from "./pages/social/Users";
 
 const Router = () => {
 	return (
@@ -14,6 +15,7 @@ const Router = () => {
 				<Route path="/dashboard" element={<Dashboard />}>
 					<Route path="/dashboard/posts" element={<Posts />}></Route>
 					<Route path="/dashboard/connections" element={<Connections />}></Route>
+					<Route path="/dashboard/users" element={<Users />}></Route>
 				</Route>
 
 				{/* <Route path="/" element={<Home />}></Route> */}

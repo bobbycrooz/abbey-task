@@ -23,9 +23,10 @@ const Social = () => {
 
 	return (
 		<>
-			<div className="abbey w-screen h-screen p-8">
+			<div className="abbey w-screen h-screen relative">
+				<div className="absolute  top-0 left-0 w-full h-full bg-[#0000007b]"/>
                         
-                        <div className="info_card shadow bg-white rounded-xl p-5 w-[400px] space-y-3 mt-[15%] z-[999]">
+                        <div className="info_card absolute top-1/2 md:left-8 -translate-y-1/2 w-[95%] left-1/2 -translate-x-1/2 md:translate-x-0  shadow bg-white rounded-xl p-5 md:w-[400px] space-y-3">
                               
                               <img src="/abbey-arrow.svg" className="w-11 h-11" alt="" />
 					<h1 className="card_title text-[#002668] font-bold text-3xl">Stay connected with your collegues</h1>

@@ -95,13 +95,13 @@ const AuthModal = ({ showModal }: ModalTypes) => {
 				key={"modal-2"}
 				initial={{ opacity: 0 }}
 				animate={{ opacity: 1 }}
-				exit={{ opacity: 0, x: 100 }}
+				exit={{ opacity: 0 }}
 				className="fixed top-0 left-0 bg-[#00000070] centered w-screen h-screen fadeIn"
 				onClick={handleBackDropt}
 				ref={modalRef}
 			>
-				<div className="card bg-white rounded-xl w-[60%] h-[460px] flex ">
-					<div className="auth_box w-1/2 p-8">
+				<div className="card bg-white rounded-xl md:w-[60%] md:h-[460px] flex w-[95%]">
+					<div className="auth_box md:w-1/2 md:p-8 p-4 py-8 md:py-8 w-full">
 						<div className="w-full space-y-6">
 							{/* head */}
 							<div className="flex justify-start items-center space-x-3">
@@ -170,7 +170,7 @@ const AuthModal = ({ showModal }: ModalTypes) => {
 							</div>
 						</div>
 					</div>
-					<div className="illus w-1/2 h-full rounded-xl"></div>
+					<div className="illus md:w-1/2 h-full rounded-xl"></div>
 				</div>
 			</motion.div>
 		</AnimatePresence>

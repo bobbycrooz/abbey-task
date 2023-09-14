@@ -86,7 +86,7 @@ const EditModal = ({ showModal }: ModalTypes) => {
 				onClick={handleBackDropt}
 				ref={modalRef}
 			>
-				<div className="card bg-white rounded-xl w-[30%] h-[auto] flex ">
+				<div className="card bg-white rounded-xl  md:w-[30%] h-[auto] flex w-[90%]">
 					{/* AUTH BOX */}
 					<div className="auth_box w-full p-8">
 						<div className="w-full space-y-4">

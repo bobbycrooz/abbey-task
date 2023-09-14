@@ -2,7 +2,7 @@
 // import React from "react";
 import { BsFilePost } from "react-icons/bs";
 // import { GrConnect } from "react-icons/gr";
-// import { GiShadowFollower } from "react-icons/gi";
+import { GiShadowFollower } from "react-icons/gi";
 import { AiOutlineHome, AiFillEdit } from "react-icons/ai";
 import { CgProfile, CgFeed } from "react-icons/cg";
 import { BiLogOutCircle, BiSolidUserPlus, BiUserCheck } from "react-icons/bi";
@@ -21,10 +21,10 @@ const tab = [
 		icon: <BsFilePost />,
 	},
 
-	// {
-	// 	name: "Followrs",
-	// 	icon: <GiShadowFollower />,
-	// },
+	{
+		name: "Users",
+		icon: <GiShadowFollower />,
+	},
 
 	{
 		name: "Connections",
@@ -112,7 +112,7 @@ const Dashboard = () => {
 
 	return (
 		<div className="home w-screen min-h-screen flex justify-center">
-			<nav className="h-screen  p-4 w-[350px]">
+			<nav className="h-screen hidden md:block  p-4 md:w-[350px]">
 				{/* logo */}
 				<button onClick={() => navigate("/")} className="w-full flex items-center">
 					<img src="/abbey-arrow.svg" className="w-8 h-8" alt="" />
@@ -144,7 +144,7 @@ const Dashboard = () => {
 				</div>
 			</nav>
 
-			<div className="feeds  min-h-screen border  w-[40%]">
+			<div className="feeds  min-h-screen border w-full  md:w-[40%]">
 				{/* CORVER */}
 				<div
 					style={{
@@ -205,7 +205,7 @@ const Dashboard = () => {
 							role={"button"}
 							className={`tab-item centered px-3 p-2 hover:bg-gray-100 rounded-xl  space-x-2 hover:text-abbey-pri hover:font-medium ${
 								currentTab == i.name ? "text-abbey-pri font-medium" : "text-gray-500 font-normal"
-							}`}
+							} ${k == 1 && "block md:hidden"}  `}
 						>
 							{i.icon}
 							<p>{i.name}</p>
@@ -217,7 +217,7 @@ const Dashboard = () => {
 				<Outlet />
 			</div>
 
-			<aside className="h-screen min-w-[360px] p-6">
+			<aside className="h-screen hidden md:block md:min-w-[360px] p-6">
 				<div className="search">
 					<input
 						type="search"
