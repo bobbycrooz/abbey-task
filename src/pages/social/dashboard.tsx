@@ -13,7 +13,7 @@ import { connectAPI } from "@/api/endpoints/auth.endpoint";
 import toast from "react-hot-toast";
 import { useEffect, useState } from "react";
 import EditModal from "@/components/EditModal";
-import { Outlet, useNavigate, useSearchParams } from "react-router-dom";
+import { Outlet, useLocation, useNavigate, useSearchParams } from "react-router-dom";
 
 const tab = [
 	{
@@ -56,7 +56,7 @@ const Dashboard = () => {
 	const filter = queryParameters.get("filter");
 	// const filterTab = queryParameters.get("tab");
 	const navigate = useNavigate();
-	// const {pathname} = useLocation()
+	const { pathname } = useLocation();
 	const [currentTab, setCurrentTab] = useState(tab[0].name);
 
 	async function handleConnet(id: string) {
@@ -103,12 +103,13 @@ const Dashboard = () => {
 		}
 	}, [filter]);
 
-	// useEffect(() => {
-	// 	if (!filterTab) {
-	// 		navigate(`/dashboard/${tab[0].name.toLowerCase()}`);
-	// 	}
-	// // eslint-disable-next-line react-hooks/exhaustive-deps
-	// }, [pathname]);
+	useEffect(() => {
+		if (pathname == "/dashboard") {
+			navigate("/dashboard/posts");
+		}
+		
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [pathname]);
 
 	return (
 		<div className="home w-screen min-h-screen flex justify-center">
